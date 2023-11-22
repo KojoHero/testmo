@@ -14,10 +14,14 @@ jobs:
         with:
           node-version: 19
           cache: npm
+          cache-dependency-path: |
+            node_modules
+            ~/.cache/Cypress
 
       # Install your project packages & dependencies here
       # [..]
-
+      
+      - run: npm cypress install
       # Install Testmo CLI tool locally (then use npx testmo .. to run it)
       - run: npm install --no-save @testmo/testmo-cli
 
