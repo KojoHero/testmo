@@ -21,7 +21,7 @@ jobs:
       # Install your project packages & dependencies here
       # [..]
       
-      - run: npm cypress install
+      - run: npx cypress install
       # Install Testmo CLI tool locally (then use npx testmo .. to run it)
       - run: npm install --no-save @testmo/testmo-cli
 
