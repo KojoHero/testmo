@@ -17,11 +17,8 @@ jobs:
           cache-dependency-path: |
             node_modules
             ~/.cache/Cypress
-
-      # Install your project packages & dependencies here
-      # [..]
       
-      - run: npx cypress install
+      - run: npm ci
       # Install Testmo CLI tool locally (then use npx testmo .. to run it)
       - run: npm install --no-save @testmo/testmo-cli
 
@@ -32,6 +29,20 @@ jobs:
           RUN_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           npx testmo automation:resources:add-link --name build \
             --url $RUN_URL --resources resources.json
+      
+      - run: |
+          if [[ -z "${TESTMO_URL}" ]]; then
+            echo "The TESTMO_URL secret is not defined for this repository"
+            exit 1
+          fi
+
+          if [[ -z "${TESTMO_TOKEN}" ]]; then
+            echo "The TESTMO_TOKEN secret is not defined for this repository"
+            exit 1
+          fi
+        env:
+          TESTMO_URL: ${{ secrets.TESTMO_URL }}
+          TESTMO_TOKEN: ${{ secrets.TESTMO_TOKEN }}
 
       # Run automated tests and report results to Testmo
       - run: |
