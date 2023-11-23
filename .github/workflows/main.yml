@@ -30,7 +30,6 @@ jobs:
             --project-id 1 \
             --name "Test run" \
             --source "CICD" \
-            --resources resources.json \
             --results results/*.xml
         env:
           TESTMO_URL: ${{ secrets.TESTMO_URL }}
